@@ -1,29 +1,14 @@
 from flask import render_template, flash, redirect
 from app import app, db
-from app.forms import LoginForm, RegistrationForm
-from app.models import User
+from app.forms import LoginForm, RegistrationForm, EmployeeForm
+from app.models import User, Employee
 
 
 @app.route('/')
 @app.route('/index')
 def index():
-    employees = [
-        {
-            'id': 1,
-            'Name': 'Mary Mutiso',
-            'ContactInformation': '0792566007',
-            'Position': 'Software Developer',
-            'Department': 'Engineering'
-        },
-        {
-            'id': 2,
-            'Name': 'Kelvin Mutiso',
-            'ContactInformation': '079256227',
-            'Position': 'Finance Officer',
-            'Department': 'Finance'
-        },
-    ]
-    return render_template('index.html', title='Home', employees=employees)
+    employees = Employee.query.all()
+    return render_template('index.html', employees=employees)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -49,3 +34,17 @@ def login():
         return redirect('/index')
     return render_template('login.html', title='Sign In', form=form)
 
+@app.route('/add_employee', methods=['GET', 'POST'])
+def add_employee():
+    form = EmployeeForm()
+    if form.validate_on_submit():
+        new_employee = Employee(
+            name=form.name.data,
+            contact_information=form.contact_information.data,
+            position=form.position.data,
+            department=form.department.data
+        )
+        db.session.add(new_employee)
+        db.session.commit()
+        return redirect('/index')    
+    return render_template('add_employee.html', form=form)

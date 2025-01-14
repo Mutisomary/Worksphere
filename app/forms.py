@@ -32,3 +32,10 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
+
+class EmployeeForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired(), Length(min=2, max=100)])
+    contact_information = StringField('Contact Information', validators=[DataRequired(), Length(min=10, max=15)])
+    position = StringField('Position', validators=[DataRequired(), Length(min=2, max=100)])
+    department = StringField('Department', validators=[DataRequired(), Length(min=2, max=100)])
+    submit = SubmitField('Submit')

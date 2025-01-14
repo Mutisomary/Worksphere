@@ -17,3 +17,15 @@ class User(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+class Employee(db.Model):
+    __tablename__ = 'employee'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    contact_information = db.Column(db.String(15), nullable=False)
+    position = db.Column(db.String(100), nullable=False)
+    department = db.Column(db.String(100), nullable=False)
+
+    def __repr__(self):
+        return f"<Employee {self.name}, {self.position}>"

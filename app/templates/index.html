@@ -1,11 +1,10 @@
 {% extends "base.html" %}
 
-
 {% block content %}
-    <h1>Welcome to Worksphere employees</h1>
+    <h1>Welcome to Worksphere Employees</h1>
     {% for employee in employees %}
     <div>
-        {{ employee.id }}.  {{ employee.Name }}  {{ employee.ContactInformation }}  {{ employee.Position }}  {{ employee.Department }}
+        {{ employee.id }}. {{ employee.name }} - {{ employee.contact_information }} - {{ employee.position }} - {{ employee.department }}
     </div>
     {% endfor %}
 {% endblock %}
