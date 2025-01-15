@@ -20,6 +20,7 @@ def register():
         db.session.add(user)
         db.session.commit()
 
+
         flash('Your account has been created! You can now log in.', 'success')
         return redirect('/login')
 
